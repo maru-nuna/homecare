@@ -1,7 +1,7 @@
 {
-  "name": "HomeCare - 우리집 살림 매니저",
-  "short_name": "HomeCare",
-  "description": "청소 주기와 물품 교체 주기를 기록하고 알림 받는 살림 도우미",
+  "name": "🛡️ 홈 프로텍터",
+  "short_name": "홈 프로텍터",
+  "description": "우리집을 지키는 청소·교체 주기 매니저",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",

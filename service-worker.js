@@ -1,4 +1,4 @@
-const CACHE = "homecare-v1";
+const CACHE = "homecare-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -47,7 +47,7 @@ self.addEventListener("fetch", (event) => {
 
 // 푸시 알림 수신
 self.addEventListener("push", (event) => {
-  let data = { title: "HomeCare", body: "확인할 항목이 있어요!" };
+  let data = { title: "🛡️ 홈 프로텍터", body: "확인할 항목이 있어요!" };
   try {
     if (event.data) data = event.data.json();
   } catch (e) {}
@@ -60,7 +60,7 @@ self.addEventListener("push", (event) => {
     data: { url: data.url || "./index.html" }
   };
 
-  event.waitUntil(self.registration.showNotification(data.title || "HomeCare", options));
+  event.waitUntil(self.registration.showNotification(data.title || "🛡️ 홈 프로텍터", options));
 });
 
 // 알림 클릭 시 앱 열기
