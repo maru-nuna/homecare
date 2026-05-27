@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#f97316" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="HomeCare" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="manifest" href="manifest.json" />
+  <title>HomeCare - 우리집 살림 매니저</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-top">
+      <h1>HomeCare</h1>
+      <button id="notif-btn" class="icon-btn" title="알림 설정" aria-label="알림 설정">🔔</button>
+    </div>
+    <div class="level-card">
+      <div class="level-info">
+        <span class="level-badge" id="level-badge">Lv.1 살림초보</span>
+        <span class="level-points" id="level-points">0 P</span>
+      </div>
+      <div class="level-bar">
+        <div class="level-bar-fill" id="level-bar-fill"></div>
+      </div>
+      <div class="level-next" id="level-next">다음 레벨까지 100P</div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="cleaning">🧹 청소</button>
+    <button class="tab-btn" data-tab="replacement">📦 물품교체</button>
+  </nav>
+
+  <main class="content">
+    <button id="add-btn" class="add-btn">+ 항목 추가</button>
+    <div id="task-list" class="task-list"></div>
+    <p id="empty-msg" class="empty-msg" hidden>아직 등록한 항목이 없어요</p>
+  </main>
+
+  <!-- 추가/수정 모달 -->
+  <div id="task-modal" class="modal" hidden>
+    <div class="modal-content">
+      <h2 id="modal-title">새 항목 추가</h2>
+      <form id="task-form">
+        <div class="form-row">
+          <label class="grow">
+            <span>카테고리</span>
+            <select id="f-category" required>
+              <option value="cleaning">🧹 청소</option>
+              <option value="replacement">📦 물품교체</option>
+            </select>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="f-for-doyoung" />
+            <span>👶 도영이를 위해</span>
+          </label>
+        </div>
+        <label>
+          <span>항목명</span>
+          <input id="f-name" type="text" placeholder="예: 화장실 청소" required maxlength="40" />
+        </label>
+        <label>
+          <span>주기 (일)</span>
+          <input id="f-cycle" type="number" min="1" max="365" placeholder="예: 7" required />
+        </label>
+        <label>
+          <span>완료 시 포인트</span>
+          <input id="f-points" type="number" min="1" max="100" value="10" required />
+        </label>
+        <label>
+          <span>마지막 실행일 (선택)</span>
+          <input id="f-last" type="date" />
+          <small class="hint">비워두면 오늘부터 주기 계산</small>
+        </label>
+        <label>
+          <span>메모 (선택)</span>
+          <textarea id="f-memo" rows="2" maxlength="100"></textarea>
+        </label>
+
+        <div class="modal-buttons">
+          <button type="button" id="btn-delete" class="btn-danger" hidden>삭제</button>
+          <div class="modal-buttons-right">
+            <button type="button" id="btn-cancel" class="btn-secondary">취소</button>
+            <button type="submit" class="btn-primary">저장</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 알림 설정 모달 -->
+  <div id="notif-modal" class="modal" hidden>
+    <div class="modal-content">
+      <h2>🔔 푸시 알림 설정</h2>
+      <p class="notif-status" id="notif-status">상태 확인 중...</p>
+      <div class="notif-info">
+        <p><strong>알림 받는 시점:</strong> 기한 3일 이내 항목이 있는 날 아침 9시</p>
+        <div class="tooltip-wrap">
+          <button type="button" class="tooltip-trigger" aria-label="아이폰 알림 안내">ⓘ 아이폰에서 알림이 안 와요?</button>
+          <div class="tooltip-content" hidden role="tooltip">
+            Safari에서 공유 → <strong>"홈 화면에 추가"</strong> 후, 그 아이콘으로 열어야 알림이 옵니다.
+            <span class="tooltip-sub">iOS 16.4 이상 필요</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-buttons">
+        <div class="modal-buttons-right">
+          <button type="button" id="btn-notif-close" class="btn-secondary">닫기</button>
+          <button type="button" id="btn-notif-toggle" class="btn-primary">알림 켜기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

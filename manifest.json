@@ -1,0 +1,24 @@
+{
+  "name": "HomeCare - 우리집 살림 매니저",
+  "short_name": "HomeCare",
+  "description": "청소 주기와 물품 교체 주기를 기록하고 알림 받는 살림 도우미",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fef7f0",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
