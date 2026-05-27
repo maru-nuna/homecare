@@ -4,8 +4,8 @@
 
 ## 🌐 라이브 사이트
 
-- **배포 URL:** (Vercel 배포 후 입력)
-- **GitHub 저장소:** (생성 후 입력)
+- **배포 URL:** https://homecare-kohl.vercel.app
+- **GitHub 저장소:** https://github.com/maru-nuna/homecare
 - **Supabase 프로젝트 URL:** https://junlsoooxfsqvuejdldu.supabase.co (모임록과 공유, 테이블만 별도)
 
 ## 🧱 기술 스택
