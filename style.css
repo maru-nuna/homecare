@@ -223,23 +223,6 @@ body {
   transform: scale(0.98);
 }
 
-.task-card .red-dot {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 10px;
-  height: 10px;
-  background: var(--danger);
-  border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15); }
-  50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.05); }
-}
-
 .task-info {
   flex: 1;
   min-width: 0;
@@ -250,7 +233,6 @@ body {
   font-weight: 600;
   color: var(--text);
   margin-bottom: 4px;
-  padding-right: 18px;
 }
 
 .task-meta {

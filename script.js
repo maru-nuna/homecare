@@ -40,9 +40,9 @@ function daysUntilDue(task) {
 }
 
 function ddayLabel(days) {
-  if (days < 0) return { text: `${Math.abs(days)}일 지남`, cls: "overdue" };
-  if (days === 0) return { text: "오늘 마감", cls: "urgent" };
-  if (days <= URGENT_DAYS) return { text: `D-${days}`, cls: "urgent" };
+  if (days < 0) return { text: `⚠️ ${Math.abs(days)}일 지남`, cls: "overdue" };
+  if (days === 0) return { text: "⚠️ 오늘 마감", cls: "urgent" };
+  if (days <= URGENT_DAYS) return { text: `⚠️ D-${days}`, cls: "urgent" };
   if (days <= SOON_DAYS) return { text: `D-${days}`, cls: "soon" };
   return { text: `D-${days}`, cls: "normal" };
 }
@@ -124,7 +124,6 @@ function renderList() {
     .map((t) => {
       const days = daysUntilDue(t);
       const d = ddayLabel(days);
-      const showDot = days <= URGENT_DAYS;
       const last = t.last_done_at
         ? `${t.last_done_at.slice(5).replace("-", ".")} 완료`
         : "아직 한 번도";
@@ -137,7 +136,6 @@ function renderList() {
       const doyoungBadge = t.for_doyoung ? '<span class="doyoung-badge">👶 For 도영이</span>' : "";
       return `
         <div class="task-card" data-id="${t.id}">
-          ${showDot ? '<span class="red-dot"></span>' : ""}
           <div class="task-info">
             <div class="task-name">${escapeHtml(t.name)}</div>
             <div class="task-meta">
