@@ -6,17 +6,18 @@
 }
 
 :root {
-  --bg: #fef7f0;
+  --bg: #fff1f2;
   --surface: #ffffff;
-  --primary: #f97316;
-  --primary-dark: #ea580c;
+  --primary: #f43f5e;
+  --primary-dark: #e11d48;
+  --primary-soft: #ffe4e6;
   --text: #1f2937;
   --text-muted: #6b7280;
-  --border: #f3e8de;
+  --border: #fecdd3;
   --danger: #ef4444;
   --success: #10b981;
   --warning: #f59e0b;
-  --shadow: 0 2px 8px rgba(249, 115, 22, 0.08);
+  --shadow: 0 2px 8px rgba(244, 63, 94, 0.08);
 }
 
 html, body {
@@ -37,7 +38,7 @@ body {
 /* 헤더 */
 .app-header {
   padding: 20px 20px 16px;
-  background: linear-gradient(135deg, #fff7ed 0%, #fef7f0 100%);
+  background: linear-gradient(135deg, #ffe4e6 0%, #fff1f2 100%);
 }
 
 .header-top {
@@ -92,7 +93,7 @@ body {
   font-size: 15px;
   font-weight: 600;
   color: var(--primary-dark);
-  background: #fff7ed;
+  background: var(--primary-soft);
   padding: 4px 12px;
   border-radius: 20px;
 }
@@ -105,7 +106,7 @@ body {
 
 .level-bar {
   height: 8px;
-  background: #f3e8de;
+  background: var(--border);
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 6px;
@@ -113,7 +114,7 @@ body {
 
 .level-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary) 0%, #fb923c 100%);
+  background: linear-gradient(90deg, var(--primary) 0%, #fb7185 100%);
   border-radius: 4px;
   transition: width 0.5s ease;
   width: 0%;
@@ -181,7 +182,7 @@ body {
 }
 
 .add-btn:hover {
-  background: #fff7ed;
+  background: var(--primary-soft);
 }
 
 .add-btn:active {
@@ -265,8 +266,13 @@ body {
   border-top-color: rgba(255, 255, 255, 0.3);
 }
 .task-card.overdue .memo-toggle {
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.task-card.overdue .memo-toggle:hover,
+.task-card.overdue .memo-toggle.open {
+  background: rgba(255, 255, 255, 0.35);
+  color: #fff;
 }
 
 /* urgent: 빨강 — 살구→다홍→빨강 그라데이션 + 광택 */
@@ -309,8 +315,13 @@ body {
   border-top-color: rgba(255, 255, 255, 0.3);
 }
 .task-card.urgent .memo-toggle {
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+.task-card.urgent .memo-toggle:hover,
+.task-card.urgent .memo-toggle.open {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
 }
 
 /* soon: 연한 주황 — 부드러운 그라데이션 */
@@ -391,7 +402,7 @@ body {
 .task-meta .dday.overdue { color: var(--danger); font-weight: 700; }
 
 .task-meta .pt {
-  background: #fff7ed;
+  background: var(--primary-soft);
   color: var(--primary-dark);
   padding: 2px 8px;
   border-radius: 10px;
@@ -409,19 +420,22 @@ body {
 }
 
 .memo-toggle {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.06);
   border: none;
-  padding: 0 2px;
-  font-size: 13px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
   cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.15s;
-  line-height: 1;
+  color: var(--text-muted);
+  border-radius: 8px;
+  font-family: inherit;
+  transition: all 0.15s;
 }
 
 .memo-toggle:hover,
 .memo-toggle.open {
-  opacity: 1;
+  background: rgba(0, 0, 0, 0.12);
+  color: var(--text);
 }
 
 .task-memo {
@@ -554,7 +568,7 @@ body {
 }
 
 .checkbox-label:has(input:checked) {
-  background: #fff7ed;
+  background: var(--primary-soft);
   border-color: var(--primary);
   color: var(--primary-dark) !important;
 }
@@ -589,7 +603,7 @@ body {
 }
 
 .checkbox-label-row:has(input:checked) {
-  background: #fff7ed;
+  background: var(--primary-soft);
   border-color: var(--primary);
 }
 

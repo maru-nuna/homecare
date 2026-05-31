@@ -140,7 +140,7 @@ function renderList() {
         ? `${t.last_done_at.slice(5).replace("-", ".")} 완료`
         : "아직 한 번도";
       const memoToggle = t.memo
-        ? `<button class="memo-toggle" data-action="memo" data-id="${t.id}" aria-label="메모 보기">📝</button>`
+        ? `<button class="memo-toggle" data-action="memo" data-id="${t.id}" aria-label="메모 보기">메모</button>`
         : "";
       const memo = t.memo
         ? `<div class="task-memo" data-memo-for="${t.id}" hidden>${escapeHtml(t.memo)}</div>`

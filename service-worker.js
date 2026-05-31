@@ -1,4 +1,4 @@
-const CACHE = "homecare-v2";
+const CACHE = "homecare-v3";
 const ASSETS = [
   "./",
   "./index.html",
