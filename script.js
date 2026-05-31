@@ -105,6 +105,10 @@ function renderLevel() {
   }
 }
 
+function isOneShotDone(t) {
+  return t.is_recurring === false && !!t.last_done_at;
+}
+
 function renderList() {
   const list = $("#task-list");
   const tabTasks = state.tasks.filter((t) => t.category === state.currentTab);
@@ -117,13 +121,21 @@ function renderList() {
 
   $("#empty-msg").hidden = true;
 
-  // 임박한 것이 먼저 (D-day 오름차순)
-  tabTasks.sort((a, b) => daysUntilDue(a) - daysUntilDue(b));
+  // 정렬: 완료된 일회성은 항상 하단. 나머지는 임박순 (D-day 오름차순)
+  tabTasks.sort((a, b) => {
+    const aDone = isOneShotDone(a);
+    const bDone = isOneShotDone(b);
+    if (aDone && !bDone) return 1;
+    if (!aDone && bDone) return -1;
+    return daysUntilDue(a) - daysUntilDue(b);
+  });
 
   list.innerHTML = tabTasks
     .map((t) => {
       const days = daysUntilDue(t);
       const d = ddayLabel(days);
+      const completed = isOneShotDone(t);
+      const stateClass = completed ? "completed" : d.cls;
       const last = t.last_done_at
         ? `${t.last_done_at.slice(5).replace("-", ".")} 완료`
         : "아직 한 번도";
@@ -134,15 +146,20 @@ function renderList() {
         ? `<div class="task-memo" data-memo-for="${t.id}" hidden>${escapeHtml(t.memo)}</div>`
         : "";
       const doyoungBadge = t.for_doyoung ? '<span class="doyoung-badge">👶 For 도영이</span>' : "";
+      const ddayHtml = completed
+        ? `<span class="dday completed">✓ 완료됨</span>`
+        : `<span class="dday ${d.cls}">${d.text}</span>`;
+      const btnAttrs = completed ? "disabled" : "";
+      const btnLabel = completed ? "완료됨" : "완료";
       return `
-        <div class="task-card" data-id="${t.id}">
+        <div class="task-card ${stateClass}" data-id="${t.id}">
           <div class="task-info">
             <div class="task-name">${escapeHtml(t.name)}</div>
             <div class="task-meta">
-              <span class="dday ${d.cls}">${d.text}</span>
-              <span>·</span>
+              ${ddayHtml}
+              <span class="dot">·</span>
               <span>${t.cycle_days}일 주기</span>
-              <span>·</span>
+              <span class="dot">·</span>
               <span>${last}</span>
               <span class="pt">+${t.points}P</span>
               ${doyoungBadge}
@@ -150,7 +167,7 @@ function renderList() {
             </div>
             ${memo}
           </div>
-          <button class="task-done-btn" data-action="done" data-id="${t.id}">완료</button>
+          <button class="task-done-btn" data-action="done" data-id="${t.id}" ${btnAttrs}>${btnLabel}</button>
         </div>
       `;
     })
@@ -193,6 +210,8 @@ function escapeHtml(str) {
 async function markDone(taskId) {
   const task = state.tasks.find((t) => t.id === taskId);
   if (!task) return;
+  // 일회성이고 이미 완료된 항목은 더 이상 처리하지 않음 (안전망)
+  if (isOneShotDone(task)) return;
 
   try {
     const today = todayStr();
@@ -238,6 +257,7 @@ function openAddModal() {
   $("#f-last").value = "";
   $("#f-memo").value = "";
   $("#f-for-doyoung").checked = false;
+  $("#f-recurring").checked = true; // 기본 반복
   $("#btn-delete").hidden = true;
   $("#task-modal").hidden = false;
   setTimeout(() => $("#f-name").focus(), 100);
@@ -250,11 +270,12 @@ function openEditModal(id) {
   $("#modal-title").textContent = "항목 수정";
   $("#f-category").value = t.category;
   $("#f-name").value = t.name;
-  $("#f-cycle").value = t.cycle_days;
-  $("#f-points").value = t.points;
+  $("#f-cycle").value = t.cycle_days || "";
+  $("#f-points").value = t.points || 10;
   $("#f-last").value = t.last_done_at || "";
   $("#f-memo").value = t.memo || "";
   $("#f-for-doyoung").checked = !!t.for_doyoung;
+  $("#f-recurring").checked = t.is_recurring !== false; // undefined/null도 기본 true
   $("#btn-delete").hidden = false;
   $("#task-modal").hidden = false;
 }
@@ -265,18 +286,24 @@ function closeModal() {
 
 async function saveTask(e) {
   e.preventDefault();
+  const lastInput = $("#f-last").value;
+  const existing = state.editingId ? state.tasks.find((t) => t.id === state.editingId) : null;
+
   const data = {
     category: $("#f-category").value,
     name: $("#f-name").value.trim(),
     cycle_days: parseInt($("#f-cycle").value, 10),
     points: parseInt($("#f-points").value, 10),
-    last_done_at: $("#f-last").value || todayStr(),
+    // 수정 모드: 사용자가 비우면 기존값 유지 (포인트/완료 이력 보호)
+    // 추가 모드: 사용자가 비우면 null ("아직 한 번도" 상태로 시작)
+    last_done_at: lastInput || (existing ? existing.last_done_at : null),
     memo: $("#f-memo").value.trim() || null,
-    for_doyoung: $("#f-for-doyoung").checked
+    for_doyoung: $("#f-for-doyoung").checked,
+    is_recurring: $("#f-recurring").checked
   };
 
-  if (!data.name || !data.cycle_days || !data.points) {
-    toast("필수 항목을 입력해주세요.");
+  if (!data.name || !data.cycle_days || !data.points || isNaN(data.cycle_days) || isNaN(data.points)) {
+    toast("필수 항목을 올바르게 입력해주세요.");
     return;
   }
 

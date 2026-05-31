@@ -11,12 +11,16 @@ create table if not exists homecare_tasks (
   points int not null default 10 check (points > 0),
   memo text,
   for_doyoung boolean not null default false,
+  is_recurring boolean not null default true,
   created_at timestamptz not null default now()
 );
 
--- (기존 테이블이 이미 있으면 이 한 줄만 실행해도 됨)
+-- (기존 테이블이 이미 있으면 아래 두 줄만 실행해도 됨)
 alter table homecare_tasks
   add column if not exists for_doyoung boolean not null default false;
+
+alter table homecare_tasks
+  add column if not exists is_recurring boolean not null default true;
 
 -- 2. 실행 이력 (누적 포인트 계산용)
 create table if not exists homecare_history (

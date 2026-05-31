@@ -53,6 +53,7 @@ HomeCare/
 | `points` | int | 한 번 달성 시 받는 포인트 (기본 10) |
 | `memo` | text | 메모 (선택) |
 | `for_doyoung` | boolean | 도영이를 위한 항목 여부. true면 카드에 "👶 For 도영이" 뱃지 표시 |
+| `is_recurring` | boolean | 주기 반복 여부 (기본 true). false면 완료 시 카드 비활성화 + 하단 정렬 |
 | `created_at` | timestamptz | 등록 시각 |
 
 ### `homecare_history` — 실행 이력 (누적 포인트 계산용)
@@ -139,3 +140,4 @@ RLS 켜져 있고, anon 역할에 모두 허용.
 - 2026-05-26: `for_doyoung` 컬럼 추가. 도영이를 위한 항목에 "👶 For 도영이" 뱃지 표시.
 - 2026-05-27: 표시 이름을 "HomeCare" → "🛡️ 홈 프로텍터"로 변경 (manifest, 헤더, 푸시 알림 등). 폴더/repo/URL은 유지.
 - 2026-05-27: 빨간점 제거. D-day 라벨 좌측에 ⚠️ 아이콘으로 통합 (완료 버튼과의 위치 충돌 해소).
+- 2026-05-27: 카드 임박 강조를 듀오링고 스타일로 변경 (overdue/urgent는 진한 빨강 배경 + 흰 텍스트, soon은 연한 주황). `is_recurring` 컬럼 추가하여 일회성 항목 지원. saveTask 안전망 (수정 시 last_done_at 보호). VAPID 공개키 등록.

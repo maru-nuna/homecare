@@ -4,5 +4,5 @@ window.SUPABASE_CONFIG = {
   anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1bmxzb29veGZzcXZ1ZWpkbGR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxOTU0ODMsImV4cCI6MjA5Mzc3MTQ4M30.3baapEr8SvVwMXdMGkNKxI-Njdj2I32Oy1aeKcSEl_4"
 };
 
-// VAPID 공개키 (푸시 알림용) — Edge Function 설정 후 여기에 붙여넣기
-window.VAPID_PUBLIC_KEY = "";
+// VAPID 공개키 (푸시 알림용) — 공개해도 OK. 비공개키는 Supabase Edge Function 환경변수에 별도 등록
+window.VAPID_PUBLIC_KEY = "BGfYiI7NFPJKhkpiSGS314tURxBe8Rij1BLOlT2ApV_M0lmdUk4rOQH3l8KFUYIpV_SHL79lVfUtuPW-78g6p3A";

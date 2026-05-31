@@ -223,6 +223,117 @@ body {
   transform: scale(0.98);
 }
 
+/* ===== 카드 임박 강조 (듀오링고 스타일) ===== */
+
+/* overdue: 가장 강한 빨강 */
+.task-card.overdue {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  border-color: #991b1b;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+}
+.task-card.overdue .task-name,
+.task-card.overdue .task-meta,
+.task-card.overdue .dot {
+  color: rgba(255, 255, 255, 0.95);
+}
+.task-card.overdue .dday {
+  color: #fef08a;
+  font-weight: 700;
+}
+.task-card.overdue .pt,
+.task-card.overdue .doyoung-badge {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.task-card.overdue .task-done-btn {
+  background: #fff;
+  color: #b91c1c;
+}
+.task-card.overdue .task-memo {
+  color: rgba(255, 255, 255, 0.9);
+  border-top-color: rgba(255, 255, 255, 0.3);
+}
+.task-card.overdue .memo-toggle {
+  opacity: 0.9;
+  filter: brightness(0) invert(1);
+}
+
+/* urgent: 빨강 */
+.task-card.urgent {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-color: #b91c1c;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+.task-card.urgent .task-name,
+.task-card.urgent .task-meta,
+.task-card.urgent .dot {
+  color: rgba(255, 255, 255, 0.95);
+}
+.task-card.urgent .dday {
+  color: #fef9c3;
+  font-weight: 700;
+}
+.task-card.urgent .pt,
+.task-card.urgent .doyoung-badge {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.task-card.urgent .task-done-btn {
+  background: #fff;
+  color: #dc2626;
+}
+.task-card.urgent .task-memo {
+  color: rgba(255, 255, 255, 0.9);
+  border-top-color: rgba(255, 255, 255, 0.3);
+}
+.task-card.urgent .memo-toggle {
+  opacity: 0.9;
+  filter: brightness(0) invert(1);
+}
+
+/* soon: 연한 주황 */
+.task-card.soon {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: #fdba74;
+}
+.task-card.soon .dday {
+  color: #c2410c;
+  font-weight: 700;
+}
+
+/* completed: 회색 톤 + 흐림 */
+.task-card.completed {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  opacity: 0.7;
+}
+.task-card.completed .task-name {
+  color: #6b7280;
+  text-decoration: line-through;
+}
+.task-card.completed .dday {
+  color: var(--success);
+  font-weight: 700;
+}
+.task-card.completed .pt,
+.task-card.completed .doyoung-badge {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+
+/* 비활성 완료 버튼 */
+.task-done-btn:disabled,
+.task-done-btn[disabled] {
+  background: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+.task-done-btn:disabled:active,
+.task-done-btn[disabled]:active {
+  transform: none;
+}
+
 .task-info {
   flex: 1;
   min-width: 0;
@@ -435,6 +546,45 @@ body {
   font-size: 13px !important;
   font-weight: 500 !important;
   color: inherit !important;
+}
+
+/* 풀-너비 체크박스 한 줄 (주기 반복 등) */
+.checkbox-label-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer;
+  padding: 11px 12px !important;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.15s;
+}
+
+.checkbox-label-row:has(input:checked) {
+  background: #fff7ed;
+  border-color: var(--primary);
+}
+
+.checkbox-label-row input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  accent-color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox-label-row span {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--text) !important;
+}
+
+.checkbox-label-row:has(input:checked) span {
+  color: var(--primary-dark) !important;
 }
 
 #task-form input:not([type="checkbox"]),
