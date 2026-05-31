@@ -225,79 +225,105 @@ body {
 
 /* ===== 카드 임박 강조 (듀오링고 스타일) ===== */
 
-/* overdue: 가장 강한 빨강 */
+/* overdue: 가장 강한 빨강 — 진한 다홍→짙은 빨강 그라데이션 + 광택 */
 .task-card.overdue {
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-  border-color: #991b1b;
-  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 45%, #b91c1c 100%);
+  border: 1px solid rgba(127, 29, 29, 0.5);
+  box-shadow:
+    0 8px 24px rgba(220, 38, 38, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
-.task-card.overdue .task-name,
+.task-card.overdue .task-name {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
 .task-card.overdue .task-meta,
+.task-card.overdue .task-meta span,
 .task-card.overdue .dot {
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.92) !important;
 }
-.task-card.overdue .dday {
-  color: #fef08a;
-  font-weight: 700;
+.task-card.overdue .dday,
+.task-card.overdue .task-meta .dday.overdue,
+.task-card.overdue .task-meta .dday.urgent {
+  color: #fff7ed !important;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 .task-card.overdue .pt,
 .task-card.overdue .doyoung-badge {
-  background: rgba(255, 255, 255, 0.22);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #fff !important;
+  backdrop-filter: blur(4px);
 }
 .task-card.overdue .task-done-btn {
   background: #fff;
   color: #b91c1c;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 .task-card.overdue .task-memo {
   color: rgba(255, 255, 255, 0.9);
   border-top-color: rgba(255, 255, 255, 0.3);
 }
 .task-card.overdue .memo-toggle {
-  opacity: 0.9;
   filter: brightness(0) invert(1);
+  opacity: 0.9;
 }
 
-/* urgent: 빨강 */
+/* urgent: 빨강 — 살구→다홍→빨강 그라데이션 + 광택 */
 .task-card.urgent {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  border-color: #b91c1c;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  background: linear-gradient(135deg, #fda4af 0%, #fb7185 30%, #ef4444 100%);
+  border: 1px solid rgba(153, 27, 27, 0.4);
+  box-shadow:
+    0 6px 20px rgba(239, 68, 68, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
-.task-card.urgent .task-name,
+.task-card.urgent .task-name {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
 .task-card.urgent .task-meta,
+.task-card.urgent .task-meta span,
 .task-card.urgent .dot {
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.92) !important;
 }
-.task-card.urgent .dday {
-  color: #fef9c3;
-  font-weight: 700;
+.task-card.urgent .dday,
+.task-card.urgent .task-meta .dday.urgent,
+.task-card.urgent .task-meta .dday.overdue {
+  color: #ffffff !important;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
 }
 .task-card.urgent .pt,
 .task-card.urgent .doyoung-badge {
-  background: rgba(255, 255, 255, 0.22);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.28) !important;
+  color: #fff !important;
+  backdrop-filter: blur(4px);
 }
 .task-card.urgent .task-done-btn {
   background: #fff;
   color: #dc2626;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 .task-card.urgent .task-memo {
   color: rgba(255, 255, 255, 0.9);
   border-top-color: rgba(255, 255, 255, 0.3);
 }
 .task-card.urgent .memo-toggle {
-  opacity: 0.9;
   filter: brightness(0) invert(1);
+  opacity: 0.9;
 }
 
-/* soon: 연한 주황 */
+/* soon: 연한 주황 — 부드러운 그라데이션 */
 .task-card.soon {
-  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-  border-color: #fdba74;
+  background: linear-gradient(135deg, #fffbeb 0%, #fed7aa 100%);
+  border: 1px solid #fdba74;
+  box-shadow:
+    0 4px 12px rgba(251, 146, 60, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-.task-card.soon .dday {
-  color: #c2410c;
+.task-card.soon .dday,
+.task-card.soon .task-meta .dday.soon {
+  color: #c2410c !important;
   font-weight: 700;
 }
 
