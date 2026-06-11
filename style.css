@@ -652,6 +652,15 @@ body {
   resize: none;
 }
 
+/* iOS Safari에서 date 입력이 고유 폭으로 컨테이너를 뚫고 나가는 것 방지 */
+#task-form input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 44px;
+}
+
 .hint {
   font-size: 12px;
   color: var(--text-muted);

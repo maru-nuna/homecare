@@ -1,4 +1,4 @@
-const CACHE = "homecare-v3";
+const CACHE = "homecare-v4";
 const ASSETS = [
   "./",
   "./index.html",
@@ -29,6 +29,9 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  // Supabase API 응답은 절대 캐시하지 않음 (항상 최신 데이터)
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin && url.hostname !== "cdn.jsdelivr.net") return;
   event.respondWith(
     caches.match(event.request).then((cached) => {
       return (
