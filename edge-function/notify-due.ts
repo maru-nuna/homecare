@@ -41,7 +41,7 @@ Deno.serve(async (_req) => {
   }
 
   // 2) 메시지 구성
-  const title = `🛡️ 홈 프로텍터 - 확인할 항목 ${urgent.length}개`;
+  const title = `홈 프로텍터 - 확인할 항목 ${urgent.length}개`;
   const body = urgent
     .slice(0, 5)
     .map((t: any) => {
