@@ -22,20 +22,24 @@
 ## 📁 폴더 구조
 
 ```
-HomeCare/
-├── index.html             # 메인 (탭/카드 리스트/모달)
-├── style.css              # 전체 스타일 (주황 톤)
-├── script.js              # Supabase 연동 + 모든 동작 로직
-├── config.js              # Supabase URL/anon key + VAPID 공개키
-├── manifest.json          # PWA 설치 정보
-├── service-worker.js      # 오프라인 캐싱 + 푸시 수신
-├── icon-192.png           # 홈화면 아이콘 (192x192)
-├── icon-512.png           # 홈화면 아이콘 (512x512)
-├── SETUP.sql              # Supabase 테이블 생성 SQL (최초 1회 실행)
-├── edge-function/
-│   └── notify-due.ts      # 매일 푸시 발송하는 Supabase Edge Function
-└── PROJECT.md             # 이 문서
+homecare/ (로컬 폴더명: 05-home-care)
+├── vercel.json            # outputDirectory: "01-app" (배포 루트 지정)
+└── 01-app/                # 배포에 필요한 파일 전체
+    ├── index.html         # 메인 (탭/카드 리스트/모달)
+    ├── style.css          # 전체 스타일 (주황 톤)
+    ├── script.js          # Supabase 연동 + 모든 동작 로직
+    ├── config.js          # Supabase URL/anon key + VAPID 공개키
+    ├── manifest.json      # PWA 설치 정보
+    ├── service-worker.js  # 오프라인 캐싱 + 푸시 수신
+    ├── icon-192.png       # 홈화면 아이콘 (192x192)
+    ├── icon-512.png       # 홈화면 아이콘 (512x512)
+    ├── SETUP.sql          # Supabase 테이블 생성 SQL (최초 1회 실행)
+    ├── edge-function/
+    │   └── notify-due.ts  # 매일 푸시 발송하는 Supabase Edge Function
+    └── PROJECT.md         # 이 문서
 ```
+
+> 새 파일 추가 시 배포 대상(브라우저가 불러오는 파일)은 반드시 `01-app` 안에 넣는다. 그 외 유형(회의록 등)은 옆에 `02-` 식으로 새 폴더를 만든다.
 
 ## 🗄️ 데이터베이스 구조
 
@@ -144,3 +148,4 @@ RLS 켜져 있고, anon 역할에 모두 허용.
 - 2026-05-27: 메모 토글을 깨진 이모지(📝)에서 "메모" 텍스트 칩으로 교체. 전체 컬러 톤을 주황(#f97316) → 로즈(#f43f5e)로 전면 교체하여 임박 카드와 컬러 일관성 확보. 아이콘 재생성, manifest theme-color 갱신.
 - 2026-06-11: 버그 수정 — 서비스 워커가 Supabase API 응답까지 캐시해, 수정한 마지막 실행일이 화면에 반영되지 않고 포인트가 초기화된 것처럼 보이던 문제 해결 (외부 API는 캐시 제외, 캐시 버전 v4). 마지막 실행일 date 입력필드가 모달 영역을 뚫고 나가던 레이아웃 수정.
 - 2026-06-11: 파비콘(`favicon.svg`) 추가 — 앱 아이콘과 같은 로즈색 + 흰 집 디자인. 표시 이름에서 방패 이모지(🛡️) 전부 제거 (제목·헤더·manifest·푸시 알림). 캐시 버전 v5.
+- 2026-07-06: 배포 파일 전체를 `01-app` 하위 폴더로 이동, `vercel.json`에 `outputDirectory: "01-app"` 추가. 폴더/repo/URL은 그대로 유지 (배포 안정성).
